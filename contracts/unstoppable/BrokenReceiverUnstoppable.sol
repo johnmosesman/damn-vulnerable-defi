@@ -33,10 +33,10 @@ contract BrokenReceiverUnstoppable {
         );
         console.log("owner balance: ", IERC20(tokenAddress).balanceOf(owner));
 
-        require(
-            IERC20(tokenAddress).transferFrom(owner, msg.sender, 1),
-            "bloop"
-        );
+        // require(
+        //     IERC20(tokenAddress).transferFrom(owner, msg.sender, 1),
+        //     "bloop"
+        // );
 
         console.log(
             "contract balance: ",
@@ -51,7 +51,10 @@ contract BrokenReceiverUnstoppable {
         //console.log('owner balance ', IERC20(tokenAddress).balanceOf(owner));
 
         require(
-            IERC20(tokenAddress).transfer(msg.sender, amount),
+            IERC20(tokenAddress).transfer(
+                msg.sender,
+                IERC20(tokenAddress).balanceOf(address(this))
+            ),
             "Transfer of tokens failed"
         );
     }

